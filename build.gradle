@@ -7,6 +7,12 @@ description = "Spring Boot Build"
 
 defaultTasks 'build'
 
+allprojects {
+	tasks.getByPath(":spring-boot-project:spring-boot-tools:spring-boot-buildpack-platform:javadoc").enabled = false
+	tasks.getByPath(":spring-boot-project:spring-boot-tools:spring-boot-gradle-plugin:javadoc").enabled = false
+	tasks.getByPath(":spring-boot-project:spring-boot-tools:spring-boot-maven-plugin:javadoc").enabled = false
+}
+
 nohttp {
 	allowlistFile = project.file("src/nohttp/allowlist.lines")
 	source.exclude "**/bin/**"
@@ -24,6 +30,8 @@ allprojects {
 	group "org.springframework.boot"
 
 	repositories {
+		maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+		maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
 		mavenCentral()
 		if (version.contains('-')) {
 			maven { url "https://repo.spring.io/milestone" }
